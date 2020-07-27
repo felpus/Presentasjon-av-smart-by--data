@@ -1,0 +1,22 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+flask = "*"
+mysqlclient = "*"
+myapplication = "*"
+mysql = "*"
+config = "*"
+flask-mysql = "*"
+pymysql = "*"
+requests = "*"
+cryptography = "*"
+func-timeout = "*"
+pytz = "*"
+
+[requires]
+python_version = "3.8"

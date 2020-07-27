@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        * {
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+<h2>The SOL restAPI</h2>
+<p><b>Functions for all sensors</b></p>
+<table>
+    <tr>
+        <th>URL</th>
+        <th>Description</th>
+        <th>Parameters (Required in bold)</th>
+        <th>Example</th>
+    </tr>
+    <tr>
+        <td>/solapi/sensors</td>
+        <td>Returns a list of all sensors in the database and their information.</td>
+        <td>None</td>
+        <td><a href="/solapi/sensors">/solapi/sensors</a></td>
+    </tr>
+    <tr>
+        <td>/solapi/recent/latest</td>
+        <td>Returns the latest reading of a specified sensor by sensorid.</td>
+        <td><b>sensorid</b></td>
+        <td><a href="/solapi/recent/latest?sensorid=00000466">/solapi/recent/latest?sensorid=00000466</a></td>
+    </tr>
+    <tr>
+        <td>/solapi/rawdata/date</td>
+        <td>Returns the raw ungrouped data from a sensor in the database. The sensor is specified by sensorid, and
+            requires at least a specific year as parameter. Can also return by month and day.
+        </td>
+        <td><b>sensorid</b>, <b>year</b>, month, day</td>
+        <td><a href="/solapi/rawdata/date?sensorid=00000466&year=2020&month=6&day=1">/solapi/rawdata/date?sensorid=00000466&year=2020&month=6&day=1</a>
+        </td>
+    </tr>
+    <tr>
+        <td>/solapi/rawdata/timeperiod</td>
+        <td>Returns the raw ungrouped data from a sensor in the database. The sensor is specified by sensorid, and the
+            time period is between the two specified dates in a YYYY-MM-DD format.
+        </td>
+        <td><b>sensorid</b>, <b>startdate</b>, <b>enddate</b></td>
+        <td><a href="/solapi/rawdata/timeperiod?sensorid=00000466&startdate=2020-5-20&enddate=2020-6-20">/solapi/rawdata/timeperiod?sensorid=00000466&startdate=2020-5-20&enddate=2020-6-20</a>
+        </td>
+    </tr>
+</table>
+
+<p><b>Sensor specific functions</b></p>
+
+<table>
+    <tr>
+        <th>TYPE</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>watertemp</td>
+        <td>Only available for sensors that contains the "temperature_b" field.</td>
+    </tr>
+    <tr>
+        <td>airtemp</td>
+        <td>Only available for sensors that contains the "temperature" field.</td>
+    </tr>
+    <tr>
+        <td>ph</td>
+        <td>Only available for sensors that contains the "ph_a" field.</td>
+    </tr>
+    <tr>
+        <td>upcoming</td>
+        <td>More types will be added as new sensors are added to the system.</td>
+    </tr>
+</table>
+<br>
+<table>
+    <tr>
+        <th>URL</th>
+        <th>Description</th>
+        <th>Parameters (Required in bold)</th>
+        <th>Example</th>
+    </tr>
+    <tr>
+        <td>/solapi/&lt;type&gt/recent/day</td>
+        <td>Returns the averaged data of a specific sensor from the last 24 hours, groups the data by the hour.</td>
+        <td><b>sensorid</b></td>
+        <td><a href="solapi/watertemp/recent/day?sensorid=00000466">solapi/watertemp/recent/day?sensorid=00000466</a>
+        </td>
+    </tr>
+    <tr>
+        <td>/solapi/&lt;type&gt/recent/week</td>
+        <td>Returns the averaged data of a specific sensor from the last week, groups the data by the hour.</td>
+        <td><b>sensorid</b></td>
+        <td><a href="solapi/watertemp/recent/week?sensorid=00000466">solapi/watertemp/recent/week?sensorid=00000466</a>
+        </td>
+    </tr>
+    <tr>
+        <td>/solapi/&lt;type&gt/recent/month</td>
+        <td>Returns the averaged data of a specific sensor from the last month, groups the data by the day.</td>
+        <td><b>sensorid</b></td>
+        <td>
+            <a href="solapi/watertemp/recent/month?sensorid=00000466">solapi/watertemp/recent/month?sensorid=00000466</a>
+        </td>
+    </tr>
+    <tr>
+        <td>/solapi/&lt;type&gt/recent/year</td>
+        <td>Returns the averaged data of a specific sensor from the last year, groups the data by the month.</td>
+        <td><b>sensorid</b></td>
+        <td><a href="solapi/watertemp/recent/year?sensorid=00000466">solapi/watertemp/recent/year?sensorid=00000466</a>
+        </td>
+    </tr>
+    <tr>
+        <td>/solapi/&lt;type&gt/date</td>
+        <td>Returns the averaged data of a specific sensor from the specified date. Selecting an entire year groups the
+            data by month. Selecting by year and month groups the data by day, and selecting by year, month and day
+            groups the data by hour.
+        </td>
+        <td><b>sensorid</b>, <b>year</b>, month, day</td>
+        <td><a href="solapi/watertemp/date?sensorid=00000466&year=2020&month=6&day=1">solapi/watertemp/date?sensorid=00000466&year=2020&month=6&day=1</a>
+        </td>
+    <tr>
+        <td>/solapi/&lt;type&gt/timeperiod</td>
+        <td>Returns the averaged data of a specific sensor from the specified period. The sensor is specified by
+            sensorid, and the time period is between the two specified dates in a YYYY-MM-DD format. Also allows for
+            grouping of data by year, month, week, day and hour.
+        </td>
+        <td><b>sensorid</b>, <b>startdate</b>, <b>enddate</b>, groupby</td>
+        <td><a href="solapi/watertemp/timeperiod?sensorid=00000466&startdate=2020-05-1&enddate=2020-06-1&groupby=day">solapi/watertemp/timeperiod?sensorid=00000466&startdate=2020-05-1&enddate=2020-06-1&groupby=day</a>
+        </td>
+</table>
+
+
+</body>
+</html>

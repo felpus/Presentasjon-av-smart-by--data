@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>
+        Målinger
+    </title>
+    <link href="{{ url_for('static',filename='styles/webinterface.css') }}" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</head>
+<div onload="getlatest()" style="margin:0;">
+    <div id="loader"></div>
+    <div class="animate-bottom" id="myDiv" style="display:none;">
+        <div class="flex-container">
+            <header class="logo">
+                <a href="http://www.lillesand.kommune.no">
+                    <img class="lillesand_logo" src="{{url_for('static', filename='icons/lillesand.png')}}"
+                         title="Lillesand kommune"/>
+                </a>
+            </header>
+            <div class="sun_and_moon_table">
+                <table class="sun_and_moon_positions">
+                    <thead>
+                    <tr>
+                        <!-- Sun icons is made by https://freeicons.io/profile/714 from www.freeicons.io. -->
+                        <th><img class="sun_rise" src="{{ url_for('static', filename='icons/sun_rise.png')}}"
+                                 title="Sunrise"/></th>
+                        <th><img class="solar_noon" src="{{ url_for('static', filename='icons/high_noon.png')}}"
+                                 title="High noon"/></th>
+                        <th><img class="sun_set" src="{{ url_for('static', filename='icons/sun_set.png')}}"
+                                 title="Sunset"/>
+                        </th>
+                        <!-- Moon icons is made by https://freeicons.io/profile/714 from www.freeicons.io. -->
+                        <th><img class="moon_rise" src="{{ url_for('static', filename='icons/moon_rise.png')}}"
+                                 title="Moonrise"/></th>
+                        <th><img class="high_moon" src="{{ url_for('static', filename='icons/high_moon.png')}}"
+                                 title="High moon"/></th>
+                        <th><img class="moon_set" src="{{ url_for('static', filename='icons/moon_set.png')}}"
+                                 title="Moonset"/></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{ sun_rise }}</td>
+                        <td>{{ solar_noon }}</td>
+                        <td>{{ sun_set }}</td>
+                        <td>{{ moon_rise }}</td>
+                        <td>{{ high_moon }}</td>
+                        <td>{{ moon_set }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="google_translate_element"></div>
+        </div>
+        <a class="bluebutton3" href="/solapi">Rest-API</a>
+        <br>
+        <hr class="line">
+        <br>
+        <center>
+            <div id="boxes">
+                &nbsp
+                <div class="boxed" id="traudalsbekkenwater2">
+                    <p id="traudalsbekkenwater"></p>
+                </div>
+                &nbsp
+                <div class="boxed" id="guttebuktawater2">
+                    <p id="guttebuktawater"></p>
+                </div>
+                &nbsp
+                <div class="boxed" id="langedalsvatnetwater2">
+                    <p id="langedalsvatnetwater"></p>
+                </div>
+            </div>
+            <br>
+            <br>
+
+            <select class="bluebutton" id="sensors" name="sensors">
+                <option value="watertemp">Sensor type</option>
+                <option value="watertemp">Water temperature</option>
+                <option value="airtemp">Air temperature</option>
+                <option value="ph">pH</option>
+            </select>
+            <select class="bluebutton" id="sensorlabel"></select>
+            <button class="bluebutton" id="myBtn">Choose Date</button>
+            <div class="modal" id="myModal">
+                <div class="modal-content">
+                    <input id="Radio_Year" name="Radio_Time" type="radio" value="Year">Year
+                    <input id="Radio_Month" name="Radio_Time" type="radio" value="Month">Month
+                    <input checked id="Radio_Day" name="Radio_Time" type="radio" value="Day">Day
+                    <br>
+                    <select class="bluebutton2" id="year"></select>
+                    <br>
+                    <select class="bluebutton2" id="month"></select>
+                    <br>
+                    <select class="bluebutton2" id="day"></select>
+                    <br>
+                    <button class="bluebutton2" id="timeperiod">Submit</button>
+                </div>
+            </div>
+            <br>
+            <button class="bluebutton" id="lastday">Last day</button>
+            <button class="bluebutton" id="lastweek">Last week</button>
+            <button class="bluebutton" id="lastmonth">Last month</button>
+            <button class="bluebutton" id="lastyear">Last year</button>
+        </center>
+        <br>
+        <h1>
+            <div id="text">Measurements</div>
+        </h1>
+        <div id="minmax">
+            <p id="minv"></p>
+            &nbsp&nbsp&nbsp&nbsp
+            <p id="maxv"></p>
+        </div>
+        <div class="chart-container">
+            <canvas id="luftchart"></canvas>
+        </div>
+        <!--<div class="frame">
+        <iframe src="http://localhost:5000/iframe" class="chartframe" scrolling="no" height="1000px" width="1500px" frameborder="1"></iframe>
+        </div> -->
+
+    </div>
+</div>
+<script src="main"></script>
+</div>
+</body>
+</html>
+
+
+
+

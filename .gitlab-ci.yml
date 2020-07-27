@@ -1,0 +1,29 @@
+image: "python:latest"
+
+stages:
+     - Static Analysis
+     - Test
+
+before_script:
+     - TZ=Europe/Minsk
+     - ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+     - DEBIAN_FRONTEND=noninteractive apt-get update -qq && apt-get -y install flake8 python3 python3-pip python3-pytest pylint3 mysql-common
+     - pip3 install --user pipenv
+     - python --version
+     #- pip3 install -r requirements.txt
+
+flake8:
+  stage: Static Analysis
+  script:
+  - flake8 --max-line-length=120 src/*.py src/**/*.py
+
+pylint:
+  stage: Static Analysis
+  allow_failure: true
+  script:
+  - pylint3 -d C0301 src/*.py src/**/*.py
+
+pytest:
+  stage: Test
+  script:
+  - pytest-3 src/Backend/getdata.py "$raw"

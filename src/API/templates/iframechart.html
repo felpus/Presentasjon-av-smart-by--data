@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>chart</title>
+    <link href="{{ url_for('static',filename='styles/Langtidsmålinger.css') }}" rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+
+</head>
+<body>
+<center>
+    <label for="sensors">Sensor type:</label>
+    <select id="sensors" name="sensors">
+        <option value="watertemp">Water temperature</option>
+        <option value="airtemp">Air temperature</option>
+        <option value="airquality">Air quality</option>
+        <option value="windspeed">Wind speed</option>
+    </select>
+    <br>
+    <button class="bluebutton" id="lastday">Last day</button>
+    <button class="bluebutton" id="lastweek">Last week</button>
+    <button class="bluebutton" id="lastmonth">Last month</button>
+    <button class="bluebutton" id="lastyear">Last year</button>
+</center>
+<br>
+<h1>
+    <div id="text">Measurements</div>
+</h1>
+<center>
+    <canvas height="600" id="iframechart" width="800"></canvas>
+</center>
+
+<script src="http://localhost:5000/chartjs"></script>
+</body>
+</html>
